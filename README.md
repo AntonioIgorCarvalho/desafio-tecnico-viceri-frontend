@@ -57,7 +57,7 @@ O projeto utiliza a nova arquitetura de **Standalone Components** do Angular 17,
 
 ### 1. Clonar o repositório
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/AntonioIgorCarvalho/desafio-tecnico-viceri-frontend
 cd superheroes-frontend
 ```
 
