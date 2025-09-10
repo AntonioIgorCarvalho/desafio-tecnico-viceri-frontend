@@ -66,15 +66,12 @@ cd superheroes-frontend
 npm install
 ```
 
-### 3. Configurar proxy (se necessário)
-O service está configurado para redirecionar chamadas para `http://localhost:8080/api`.
-
-### 4. Executar a aplicação
+### 3. Executar a aplicação
 ```bash
 ng serve
 ```
 
-### 5. Acessar a aplicação
+### 4. Acessar a aplicação
 - **Frontend**: http://localhost:4200
 
 ## Scripts Disponíveis
