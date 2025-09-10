@@ -1,0 +1,111 @@
+<div class="formulario-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>{{ modoEdicao ? 'edit' : 'add' }}</mat-icon>
+        {{ modoEdicao ? 'Editar Herói' : 'Novo Super-Herói' }}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{ modoEdicao ? 'Atualize as informações do herói' : 'Cadastre um novo super-herói' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div *ngIf="carregando" class="loading-container">
+        <mat-progress-spinner mode="indeterminate" diameter="40"></mat-progress-spinner>
+        <p>Carregando dados do herói...</p>
+      </div>
+
+      <form [formGroup]="formularioHeroi" (ngSubmit)="onSubmit()" *ngIf="!carregando">
+        <div class="form-row">
+          <!-- Nome Real -->
+          <mat-form-field appearance="outline" class="campo-nome">
+            <mat-label>Nome Real</mat-label>
+            <input matInput formControlName="nome" placeholder="Ex: Peter Parker">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="formularioHeroi.get('nome')?.invalid && formularioHeroi.get('nome')?.touched">
+              {{ obterMensagemErro('nome') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Nome do Herói -->
+          <mat-form-field appearance="outline" class="campo-nome-heroi">
+            <mat-label>Nome do Herói</mat-label>
+            <input matInput formControlName="nomeHeroi" placeholder="Ex: Homem-Aranha">
+            <mat-icon matSuffix>mask</mat-icon>
+            <mat-error *ngIf="formularioHeroi.get('nomeHeroi')?.invalid && formularioHeroi.get('nomeHeroi')?.touched">
+              {{ obterMensagemErro('nomeHeroi') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <!-- Data de Nascimento -->
+          <mat-form-field appearance="outline" class="campo-data">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput type="date" formControlName="dataNascimento">
+            <mat-icon matSuffix>event</mat-icon>
+            <mat-error *ngIf="formularioHeroi.get('dataNascimento')?.invalid && formularioHeroi.get('dataNascimento')?.touched">
+              {{ obterMensagemErro('dataNascimento') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Altura -->
+          <mat-form-field appearance="outline" class="campo-fisico">
+            <mat-label>Altura (metros)</mat-label>
+            <input matInput type="number" step="0.01" min="0.5" max="3.0" 
+                   formControlName="altura" placeholder="Ex: 1.75">
+            <mat-icon matSuffix>height</mat-icon>
+            <mat-error *ngIf="formularioHeroi.get('altura')?.invalid && formularioHeroi.get('altura')?.touched">
+              {{ obterMensagemErro('altura') }}
+            </mat-error>
+          </mat-form-field>
+
+          <!-- Peso -->
+          <mat-form-field appearance="outline" class="campo-fisico">
+            <mat-label>Peso (kg)</mat-label>
+            <input matInput type="number" min="20" max="500" 
+                   formControlName="peso" placeholder="Ex: 70">
+            <mat-icon matSuffix>fitness_center</mat-icon>
+            <mat-error *ngIf="formularioHeroi.get('peso')?.invalid && formularioHeroi.get('peso')?.touched">
+              {{ obterMensagemErro('peso') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Superpoderes -->
+        <mat-form-field appearance="outline" class="campo-superpoderes">
+          <mat-label>Superpoderes</mat-label>
+          <mat-select multiple formControlName="superpoderesIds">
+            <mat-option *ngFor="let superpoder of superpoderes" [value]="superpoder.id">
+              <div class="superpoder-option">
+                <span class="nome">{{ superpoder.superpoder }}</span>
+                <span class="descricao">{{ superpoder.descricao }}</span>
+              </div>
+            </mat-option>
+          </mat-select>
+          <mat-icon matSuffix>flash_on</mat-icon>
+          <mat-hint>Selecione um ou mais superpoderes</mat-hint>
+          <mat-error *ngIf="formularioHeroi.get('superpoderesIds')?.invalid && formularioHeroi.get('superpoderesIds')?.touched">
+            Selecione pelo menos um superpoder
+          </mat-error>
+        </mat-form-field>
+
+        <!-- Botões -->
+        <div class="botoes-container">
+          <button mat-raised-button type="button" (click)="cancelar()" [disabled]="salvando">
+            <mat-icon>cancel</mat-icon>
+            Cancelar
+          </button>
+
+          <button mat-raised-button color="primary" type="submit" 
+                  [disabled]="formularioHeroi.invalid || salvando">
+            <mat-progress-spinner *ngIf="salvando" diameter="20" mode="indeterminate"></mat-progress-spinner>
+            <mat-icon *ngIf="!salvando">{{ modoEdicao ? 'save' : 'add' }}</mat-icon>
+            {{ salvando ? 'Salvando...' : (modoEdicao ? 'Atualizar' : 'Criar Herói') }}
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,60 @@
+.lista-herois-container {
+  margin: 20px 0;
+}
+
+.filtro {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.tabela-container {
+  overflow: auto;
+  max-height: 600px;
+}
+
+.mat-mdc-table {
+  width: 100%;
+}
+
+.nome-heroi {
+  font-weight: bold;
+  color: #1976d2;
+}
+
+.sem-dados {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+  
+  mat-icon {
+    font-size: 48px;
+    height: 48px;
+    width: 48px;
+    margin-bottom: 16px;
+  }
+  
+  p {
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+}
+
+.loading-container {
+  text-align: center;
+  padding: 40px;
+  
+  p {
+    margin-top: 20px;
+    color: #666;
+  }
+}
+
+mat-chip-listbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+mat-chip {
+  font-size: 12px;
+}

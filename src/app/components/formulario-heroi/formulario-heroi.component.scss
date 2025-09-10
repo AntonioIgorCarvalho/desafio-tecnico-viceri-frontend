@@ -1,0 +1,101 @@
+.formulario-container {
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.loading-container {
+  text-align: center;
+  padding: 40px;
+  
+  p {
+    margin-top: 16px;
+    color: #666;
+  }
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 0;
+  }
+}
+
+.campo-nome,
+.campo-nome-heroi {
+  flex: 1;
+}
+
+.campo-data {
+  flex: 2;
+}
+
+.campo-fisico {
+  flex: 1;
+}
+
+.campo-superpoderes {
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.superpoder-option {
+  display: flex;
+  flex-direction: column;
+  padding: 4px 0;
+  
+  .nome {
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+  
+  .descricao {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.2;
+  }
+}
+
+.botoes-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.mat-mdc-raised-button {
+  min-width: 120px;
+  
+  .mat-progress-spinner {
+    margin-right: 8px;
+  }
+  
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+// Estilos para mensagens de erro
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+// Melhorar aparência do select multiple
+.mat-mdc-select-panel .mat-mdc-option {
+  height: auto;
+  min-height: 48px;
+  padding: 8px 16px;
+  
+  .mat-option-text {
+    white-space: normal;
+    line-height: 1.4;
+  }
+}

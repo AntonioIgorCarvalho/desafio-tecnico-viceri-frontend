@@ -1,0 +1,103 @@
+<div class="lista-herois-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Lista de Super-Heróis</mat-card-title>
+      <mat-card-subtitle>Gerencie todos os seus super-heróis</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <!-- Filtro -->
+      <mat-form-field appearance="outline" class="filtro">
+        <mat-label>Filtrar heróis</mat-label>
+        <input matInput (keyup)="aplicarFiltro($event)" placeholder="Digite nome do herói ou superpoder...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <!-- Tabela -->
+      <div class="tabela-container" *ngIf="!carregando">
+        <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-2">
+          
+          <!-- Coluna ID -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let heroi"> {{ heroi.id }} </td>
+          </ng-container>
+
+          <!-- Coluna Nome -->
+          <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef> Nome Real </th>
+            <td mat-cell *matCellDef="let heroi"> {{ heroi.nome }} </td>
+          </ng-container>
+
+          <!-- Coluna Nome Herói -->
+          <ng-container matColumnDef="nomeHeroi">
+            <th mat-header-cell *matHeaderCellDef> Nome do Herói </th>
+            <td mat-cell *matCellDef="let heroi" class="nome-heroi"> {{ heroi.nomeHeroi }} </td>
+          </ng-container>
+
+          <!-- Coluna Data Nascimento -->
+          <ng-container matColumnDef="dataNascimento">
+            <th mat-header-cell *matHeaderCellDef> Nascimento </th>
+            <td mat-cell *matCellDef="let heroi"> {{ formatarData(heroi.dataNascimento) }} </td>
+          </ng-container>
+
+          <!-- Coluna Altura -->
+          <ng-container matColumnDef="altura">
+            <th mat-header-cell *matHeaderCellDef> Altura </th>
+            <td mat-cell *matCellDef="let heroi"> {{ heroi.altura }}m </td>
+          </ng-container>
+
+          <!-- Coluna Peso -->
+          <ng-container matColumnDef="peso">
+            <th mat-header-cell *matHeaderCellDef> Peso </th>
+            <td mat-cell *matCellDef="let heroi"> {{ heroi.peso }}kg </td>
+          </ng-container>
+
+          <!-- Coluna Superpoderes -->
+          <ng-container matColumnDef="superpoderes">
+            <th mat-header-cell *matHeaderCellDef> Superpoderes </th>
+            <td mat-cell *matCellDef="let heroi">
+              <mat-chip-listbox>
+                <mat-chip *ngFor="let superpoder of heroi.superpoderes" 
+                         [matTooltip]="superpoder.descricao">
+                  {{ superpoder.superpoder }}
+                </mat-chip>
+              </mat-chip-listbox>
+            </td>
+          </ng-container>
+
+          <!-- Coluna Ações -->
+          <ng-container matColumnDef="acoes">
+            <th mat-header-cell *matHeaderCellDef> Ações </th>
+            <td mat-cell *matCellDef="let heroi">
+              <button mat-icon-button color="primary" (click)="editarHeroi(heroi)" matTooltip="Editar">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="excluirHeroi(heroi)" matTooltip="Excluir">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <!-- Mensagem quando não há dados -->
+        <div *ngIf="dataSource.data.length === 0" class="sem-dados">
+          <mat-icon>sentiment_dissatisfied</mat-icon>
+          <p>Nenhum super-herói encontrado.</p>
+          <button mat-raised-button color="primary" routerLink="/herois/novo">
+            Cadastrar Primeiro Herói
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading -->
+      <div *ngIf="carregando" class="loading-container">
+        <mat-progress-spinner mode="indeterminate" diameter="50"></mat-progress-spinner>
+        <p>Carregando heróis...</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
